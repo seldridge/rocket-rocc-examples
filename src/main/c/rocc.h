@@ -1,5 +1,5 @@
-#ifndef SRC_ROCC_H
-#define SRC_ROCC_H
+#ifndef SRC_MAIN_C_ROCC_H
+#define SRC_MAIN_C_ROCC_H
 
 // Standard macro that passes rd_, rs1_, and rs2_ via registers
 #define ROCC_INSTRUCTION(XCUSTOM_, rd_, rs1_, rs2_, funct_)       \
@@ -21,4 +21,4 @@
                 : [rd] "=r" (rd_)                                 \
                 : [rs1] "i" (rs1_), [rs2] "i" (rs2_), [funct] "i" (funct_))
 
-#endif  // SRC_ACCUMULATOR_H
+#endif  // SRC_MAIN_C_ACCUMULATOR_H

@@ -1,5 +1,5 @@
-#ifndef SRC_ACCUMULATOR_H
-#define SRC_ACCUMULATOR_H
+#ifndef SRC_MAIN_C_ACCUMULATOR_H
+#define SRC_MAIN_C_ACCUMULATOR_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -19,4 +19,4 @@ uint64_t doRead(uint16_t rocc_rd);
 uint64_t doLoad(uint16_t rocc_rd, uint64_t * addr);
 uint64_t doAccum(uint16_t rocc_rd, uint64_t data);
 
-#endif  // SRC_ACCUMULATOR_H
+#endif  // SRC_MAIN_C_ACCUMULATOR_H
