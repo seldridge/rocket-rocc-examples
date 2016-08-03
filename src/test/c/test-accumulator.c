@@ -31,6 +31,7 @@ int main() {
          data, data_addr);
   y = doLoad(addr, data_addr);
   printf("[INFO]   Received %lx\n", y);
+  assert(y == data);
 
   return 0;
 }
