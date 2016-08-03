@@ -29,14 +29,14 @@ int main() {
   // SimpleHellaCacheIF). The commented-out skeleton below should be
   // the right approach:
 
-  // data = 0xbeef;
-  // uint64_t * data_addr = &data;
-  // printf("[INFO] Load %lx (0x%lx) via L1 data cache\n",
-  //        data, (uint64_t) data_addr);
-  // printf("[INFO]   Reading back in software [0x%lx] = %lx\n",
-  //        (uint64_t) data_addr, *data_addr);
-  // y = doLoad(addr, data_addr);
-  // printf("[INFO] y = %lx\n", y);
+  data = 0xbeef;
+  uint64_t * data_addr = &data;
+  printf("[INFO] Load %lx (0x%lx) via L1 data cache\n",
+         data, (uint64_t) data_addr);
+  printf("[INFO]   Reading back in software [0x%lx] = %lx\n",
+         (uint64_t) data_addr, *data_addr);
+  y = doLoad(addr, data_addr);
+  printf("[INFO] y = %lx\n", y);
 
   return 0;
 }
