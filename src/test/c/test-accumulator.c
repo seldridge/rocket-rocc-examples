@@ -1,5 +1,6 @@
 #include <assert.h>
-#include "src/main/c/accumulator.h"
+#include "accumulator.h"
+#include "translator.h"
 
 int main() {
 
@@ -24,19 +25,12 @@ int main() {
   printf("[INFO]   Received %lx\n", y);
   assert(y == data + data_accum);
 
-  // doLoad appears to be currently broken with the Accumulator
-  // example in rocc.scala (an assertion is firing in the
-  // SimpleHellaCacheIF). The commented-out skeleton below should be
-  // the right approach:
-
   data = 0xbeef;
-  uint64_t * data_addr = &data;
+  uint64_t data_addr = doTranslate((void *) &data);
   printf("[INFO] Load %lx (0x%lx) via L1 data cache\n",
-         data, (uint64_t) data_addr);
-  printf("[INFO]   Reading back in software [0x%lx] = %lx\n",
-         (uint64_t) data_addr, *data_addr);
+         data, data_addr);
   y = doLoad(addr, data_addr);
-  printf("[INFO] y = %lx\n", y);
+  printf("[INFO]   Received %lx\n", y);
 
   return 0;
 }
