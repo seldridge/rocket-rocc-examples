@@ -1,3 +1,5 @@
+// See LICENSE for license details.
+
 #include "accumulator.h"
 
 uint64_t doWrite(uint16_t rocc_rd, uint64_t data) {

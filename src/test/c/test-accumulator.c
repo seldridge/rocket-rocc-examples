@@ -1,3 +1,5 @@
+// See LICENSE for license details.
+
 #include <assert.h>
 #include "accumulator.h"
 #include "translator.h"

@@ -1,3 +1,5 @@
+// See LICENSE for license details.
+
 #ifndef SRC_MAIN_C_ROCC_H
 #define SRC_MAIN_C_ROCC_H
 
