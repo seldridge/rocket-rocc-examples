@@ -18,7 +18,7 @@ typedef enum {
 
 uint64_t doWrite(uint16_t rocc_rd, uint64_t data);
 uint64_t doRead(uint16_t rocc_rd);
-uint64_t doLoad(uint16_t rocc_rd, uint64_t addr);
+uint64_t doLoad(uint16_t rocc_rd, void * addr);
 uint64_t doAccum(uint16_t rocc_rd, uint64_t data);
 
 #endif  // SRC_MAIN_C_ACCUMULATOR_H

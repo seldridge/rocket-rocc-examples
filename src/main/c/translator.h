@@ -5,6 +5,6 @@
 
 #define XCUSTOM_TRANS "custom1"
 
-uint64_t doTranslate(void *vaddr);
+void * doTranslate(void * vaddr);
 
 #endif  // SRC_MAIN_C_TRANSLATOR_H

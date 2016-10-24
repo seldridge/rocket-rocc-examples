@@ -6,34 +6,37 @@
 
 int main() {
 
-  uint64_t data = 0xdead;
+  uint64_t data [] = {0xdead, 0xbeef, 0x0bad, 0xf00d};
+
   uint16_t addr = 1;
-  printf("[INFO] Write R[%d] = %lx\n", addr, data);
-  doWrite(addr, data);
+  printf("[INFO] Write R[%d] = 0x%lx\n", addr, data[0]);
+  doWrite(addr, data[0]);
 
   printf("[INFO] Read R[%d]\n", addr);
   uint64_t y = doRead(addr);
-  printf("[INFO]   Received %lx\n", y);
-  assert(y == data);
+  printf("[INFO]   Received 0x%lx\n", y);
+  assert(y == data[0]);
 
-  uint64_t data_accum = -0x1fbe;
-  printf("[INFO] Accum R[%d] with %lx\n", addr, data_accum);
+  uint64_t data_accum = -data[0] + data[1];
+  printf("[INFO] Accum R[%d] with 0x%lx\n", addr, data_accum);
   y = doAccum(addr, data_accum);
-  printf("[INFO]   Received %lx\n", y);
-  assert(y == data);
+  assert(y == data[0]);
 
   printf("[INFO] Read R[%d]\n", addr);
   y = doRead(addr);
-  printf("[INFO]   Received %lx\n", y);
-  assert(y == data + data_accum);
+  printf("[INFO]   Received 0x%lx\n", y);
+  assert(y == data[1]);
 
-  data = 0xbeef;
-  uint64_t data_addr = doTranslate((void *) &data);
-  printf("[INFO] Load %lx (0x%lx) via L1 data cache\n",
-         data, data_addr);
+  uint64_t * data_addr = (uint64_t * ) doTranslate((void *) &data[2]);
+  printf("[INFO] Load 0x%lx (virt: 0x%p, phys: 0x%p) via L1 data cache\n",
+         data[2], &data[2], data_addr);
   y = doLoad(addr, data_addr);
-  printf("[INFO]   Received %lx\n", y);
-  assert(y == data);
+  assert(y == data[1]);
+
+  printf("[INFO] Read R[%d]\n", addr);
+  y = doRead(addr);
+  printf("[INFO]   Received 0x%lx\n", y);
+  assert(y == data[2]);
 
   return 0;
 }
