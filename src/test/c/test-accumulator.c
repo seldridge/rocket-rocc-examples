@@ -27,10 +27,10 @@ int main() {
   printf("[INFO]   Received 0x%lx\n", y);
   assert(y == data[1]);
 
-  uint64_t * data_addr;
+  uint64_t data_addr;
   doTranslate(data_addr, &data[2]);
   printf("[INFO] Load 0x%lx (virt: 0x%p, phys: 0x%p) via L1 data cache\n",
-         data[2], &data[2], data_addr);
+         data[2], &data[2], (void *) data_addr);
   doLoad(y, addr, data_addr);
   assert(y == data[1]);
 

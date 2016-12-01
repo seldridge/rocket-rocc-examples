@@ -14,33 +14,13 @@
 
 #define XCUSTOM_ACC 0
 
-#define doWrite(y, rocc_rd, data) {                                     \
-    register uint64_t rd asm ("a0");                                    \
-    register uint64_t rs1 asm ("a1") = data;                            \
-    register uint64_t rs2 asm ("a2") = (uint64_t) rocc_rd;              \
-    ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, rs1, rs2, k_DO_WRITE);       \
-    y = rd;                                                             \
-  }
-#define doRead(y, rocc_rd) {                                            \
-    register uint64_t rd asm ("a0");                                    \
-    register uint64_t rs1 asm ("a1") = 0;                               \
-    register uint64_t rs2 asm ("a2") = rocc_rd;                         \
-    ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, rs1, rs2, k_DO_READ);        \
-    y = rd;                                                             \
-  }
-#define doLoad(y, rocc_rd, mem_addr) {                                  \
-    register uint64_t rd asm ("a0");                                    \
-    register uint64_t rs1 asm ("a1") = (uint64_t) mem_addr;             \
-    register uint64_t rs2 asm ("a2") = rocc_rd;                         \
-    ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, rs1, rs2, k_DO_LOAD);        \
-    y = rd;                                                             \
-  }
-#define doAccum(y, rocc_rd, data) {                                     \
-    register uint64_t rd asm ("a0");                                    \
-    register uint64_t rs1 asm ("a1") = data;                            \
-    register uint64_t rs2 asm ("a2") = rocc_rd;                         \
-    ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, rs1, rs2, k_DO_ACCUM);       \
-    y = rd;                                                             \
-  }
+#define doWrite(y, rocc_rd, data)                                       \
+  ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, data, rocc_rd, k_DO_WRITE);
+#define doRead(y, rocc_rd)                                              \
+  ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, 0, rocc_rd, k_DO_READ);
+#define doLoad(y, rocc_rd, mem_addr)                                    \
+  ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, mem_addr, rocc_rd, k_DO_LOAD);
+#define doAccum(y, rocc_rd, data) \
+  ROCC_INSTRUCTION_R_R_R(XCUSTOM_ACC, y, data, rocc_rd, k_DO_ACCUM);
 
 #endif  // SRC_MAIN_C_ACCUMULATOR_H

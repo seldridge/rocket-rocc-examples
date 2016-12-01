@@ -25,11 +25,16 @@
 #define ROCC_INSTRUCTION(XCUSTOM_, rd_, rs1_, rs2_, funct_)     \
   ROCC_INSTRUCTION_R_R_R(XCUSTOM_, rd_, rs1_, rs2_, funct_)
 
-#define ROCC_INSTRUCTION_R_R_R(X, rd, rs1, rs2, funct)  \
-  asm volatile (                                        \
-       ".word "STR(CUSTOMX(X, 10, 11, 12, funct))"\n\t" \
-       : "=r" (rd)                                      \
-       : [_rs1] "r" (rs1), [_rs2] "r" (rs2));
+#define ROCC_INSTRUCTION_R_R_R(X, rd, rs1, rs2, funct) {        \
+    register uint64_t rd_ asm ("a0");                           \
+    register uint64_t rs1_ asm ("a1") = (uint64_t) rs1;         \
+    register uint64_t rs2_ asm ("a2") = (uint64_t) rs2;         \
+    asm volatile (                                              \
+        ".word "STR(CUSTOMX(X, 10, 11, 12, funct))"\n\t"        \
+        : "=r" (rd_)                                            \
+        : [_rs1] "r" (rs1_), [_rs2] "r" (rs2_));                \
+    rd = rd_;                                                   \
+  }
 
 // [TODO] fix these to align with the above approach
 // Macro to pass rs2_ as an immediate
