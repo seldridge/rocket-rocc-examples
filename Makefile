@@ -12,7 +12,7 @@ RV_CC     = $(RV_NEWLIB)-gcc
 RV_AR     = $(RV_NEWLIB)-ar
 RV_OBJDUMP = $(RV_NEWLIB)-objdump
 
-CFLAGS = -Wall -O3 -march=RV64IMAFDXcustom -I$(DIR_MAIN) -I$(DIR_TEST)
+CFLAGS = -Wall -O3 -I$(DIR_MAIN) -I$(DIR_TEST)
 
 vpath %.c $(DIR_TOP)/src/main/c
 vpath %.c $(DIR_TOP)/src/test/c
