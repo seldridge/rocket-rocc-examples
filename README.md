@@ -5,9 +5,9 @@ Collection of example libraries and test programs for the existing Rocket Custom
 This has been verified as working with the following commits:
   * [`rocket-chip:c5310938`](https://github.com/ucb-bar/rocket-chip/tree/c531093898f1f4ff22d1c2cf9d5bb2310d05fc31)
   * [`riscv-tools:cd78e37`](https://github.com/riscv/riscv-tools/tree/cd78e37f72cfc2a452a0c11744586084fbae1dcd)
-Note: this `risc-tools` is ahead of what is pointed at by `rocket-chip`.
+Note: this `riscv-tools` is ahead of what is pointed at by `rocket-chip`.
 
-Install the RISC-V toolchain and make sure that it's on your path. You need to build a patched Proxy Kernel that will set the `XS` bits to allow access to the "extension", i.e., some RoCC accelerator. Additionally, with Rocket's config string specification in flux, you need to hard-code the memory size that the proxy kernel reads. You can change this manually or use the provided patch (patches/riscv-pk.patch):
+Install the RISC-V toolchain and make sure that it's on your path. You need to build a patched Proxy Kernel that will set the `XS` bits to allow access to the "extension", i.e., some RoCC accelerator. Additionally, with Rocket's config string specification in flux, you need to hard-code the memory size that the proxy kernel reads. You can change this manually or use the provided patch ([`patches/riscv-pk.patch`](patches/riscv-pk.patch)):
 ```
 cd $RISCV_PK_DIR
 git apply $THIS_REPO_DIR/patches/riscv-pk.patch
