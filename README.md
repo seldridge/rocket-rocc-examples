@@ -29,8 +29,9 @@ Build a rocket-chip emulator with the RoCC examples baked in and run the provide
 ```
 cd $ROCKETCHIP_DIR/emulator
 make CONFIG=RoccExampleConfig
-./emulator-Top-RoccExampleConfig pk $THIS_REPO_DIR/build/test-accumulator
+./emulator-Top-RoccExampleConfig $RISCV_PK_DIR/build/pk $THIS_REPO_DIR/build/test-accumulator
 ```
+Note: `make install` in `$RISCV_PK_DIR/build` should install the patched proxy kernel in `$RISCV/riscv64-unknown-elf/bin/` and the emulator should find this correctly by just specifying `./emulator-Top-RoccExampleConfig pk [binary]`. However, I'm being explicit in referencing the patched proxy kernel with a full path in the command above.
 
 ### Expected Run Time
 
