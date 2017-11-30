@@ -1,8 +1,10 @@
 // See LICENSE for license details.
 
 #include <assert.h>
-#include "accumulator.h"
-#include "translator.h"
+#include <stdint.h>
+#include <stdio.h>
+#include "src/include/accumulator.h"
+#include "src/include/translator.h"
 
 int main() {
 
@@ -14,7 +16,7 @@ int main() {
 
   printf("[INFO] Read R[%d]\n", addr);
   doRead(y, addr);
-  printf("[INFO]   Received 0x%lx\n", y);
+  printf("[INFO]   Received 0x%lx (expected 0x%lx)\n", y, data[0]);
   assert(y == data[0]);
 
   uint64_t data_accum = -data[0] + data[1];
@@ -24,19 +26,19 @@ int main() {
 
   printf("[INFO] Read R[%d]\n", addr);
   doRead(y, addr);
-  printf("[INFO]   Received 0x%lx\n", y);
+  printf("[INFO]   Received 0x%lx (expected 0x%lx)\n", y, data[1]);
   assert(y == data[1]);
 
   uint64_t data_addr;
   doTranslate(data_addr, &data[2]);
-  printf("[INFO] Load 0x%lx (virt: 0x%p, phys: 0x%p) via L1 data cache\n",
+  printf("[INFO] Load 0x%lx (virt: 0x%p, phys: 0x%p) via L1 virtual address\n",
          data[2], &data[2], (void *) data_addr);
-  doLoad(y, addr, data_addr);
+  doLoad(y, addr, &data[2]);
   assert(y == data[1]);
 
   printf("[INFO] Read R[%d]\n", addr);
   doRead(y, addr);
-  printf("[INFO]   Received 0x%lx\n", y);
+  printf("[INFO]   Received 0x%lx (expected 0x%lx)\n", y, data[2]);
   assert(y == data[2]);
 
   return 0;

@@ -3,9 +3,7 @@
 #ifndef SRC_MAIN_C_ACCUMULATOR_H
 #define SRC_MAIN_C_ACCUMULATOR_H
 
-#include <stdio.h>
-#include <stdint.h>
-#include "rocc.h"
+#include "rocc-software/src/xcustom.h"
 
 #define k_DO_WRITE 0
 #define k_DO_READ 1

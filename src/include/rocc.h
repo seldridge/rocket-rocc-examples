@@ -38,6 +38,23 @@
     rd = rd_;                                                           \
   }
 
+#define ROCC_INSTRUCTION_R_R_R_REGF(X, fd, fs1, fs2, funct) {           \
+    register uint64_t rd_  asm ("x27");                                 \
+    register uint64_t rs1_ asm ("x28");                                 \
+    register uint64_t rs2_ asm ("x29");                                 \
+    asm volatile ("fmv.x.s x28, f28");                                  \
+    asm volatile ("fmv.x.s x29, f29");                                  \
+    asm volatile (                                                      \
+        " fmv.x.s x28, %[fs1] \n\t"                                     \
+        " fmv.x.s x29, %[fs2] \n\t"                                     \
+        ".word " STR(CUSTOMX(X, 27, 28, 29, funct)) "\n\t"              \
+        " fmv.x.s %[fd], x27 \n\t"                                      \
+        : "=r" (rd_)                                                    \
+        : [_rs1] "r" (rs1_), [_rs2] "r" (rs2_));                        \
+    asm volatile ("fmv.s.x f27, x27");                                  \
+    rd = rd_;                                                           \
+  }
+
 // [TODO] fix these to align with the above approach
 // Macro to pass rs2_ as an immediate
 /*

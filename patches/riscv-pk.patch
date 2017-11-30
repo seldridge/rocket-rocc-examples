@@ -1,30 +1,13 @@
-diff --git a/machine/configstring.c b/machine/configstring.c
-index fb2fed7..f3f21d2 100644
---- a/machine/configstring.c
-+++ b/machine/configstring.c
-@@ -6,12 +6,7 @@
- 
- static void query_mem(const char* config_string)
- {
--  query_result res = query_config_string(config_string, "ram{0{addr");
--  assert(res.start);
--  uintptr_t base = get_uint(res);
--  assert(base == DRAM_BASE);
--  res = query_config_string(config_string, "ram{0{size");
--  mem_size = get_uint(res);
-+  mem_size = 0x10000000;
- }
- 
- static void query_rtc(const char* config_string)
 diff --git a/machine/minit.c b/machine/minit.c
-index b3f2c86..54ff88e 100644
+index 0fb5f21..9b57789 100644
 --- a/machine/minit.c
 +++ b/machine/minit.c
-@@ -19,6 +19,7 @@ static void mstatus_init()
-   uintptr_t ms = 0;
-   ms = INSERT_FIELD(ms, MSTATUS_VM, VM_CHOICE);
-   ms = INSERT_FIELD(ms, MSTATUS_FS, 1);
-+  ms = INSERT_FIELD(ms, MSTATUS_XS, 1);
-   write_csr(mstatus, ms);
+@@ -17,7 +17,7 @@ size_t plic_ndevs;
+ static void mstatus_init()
+ {
+   // Enable FPU
+-  write_csr(mstatus, MSTATUS_FS);
++  write_csr(mstatus, MSTATUS_FS | MSTATUS_XS);
  
-   // Make sure the hart actually supports the VM mode we want
+   // Enable user/supervisor use of perf counters
+   write_csr(scounteren, -1);
