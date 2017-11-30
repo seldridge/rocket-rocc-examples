@@ -16,8 +16,9 @@ make
 make install
 ```
 
-Build everything in this repository (`librocc.a` and `test-accumulator`):
+Build everything in this repository (`test-accumulator`):
 ```
+git submodule update --init rocc-software
 cd $THIS_REPO_DIR
 make
 ```
