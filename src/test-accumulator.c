@@ -3,8 +3,8 @@
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
-#include "src/include/accumulator.h"
-#include "src/include/translator.h"
+#include "include/accumulator.h"
+#include "include/translator.h"
 
 int main() {
 
