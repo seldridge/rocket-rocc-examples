@@ -4,7 +4,29 @@ Collection of example libraries and test programs for the existing Rocket Custom
 
 This has been verified as working [`rocket-chip:44eb4d12`](https://github.com/ucb-bar/rocket-chip/tree/44eb4d12).
 
-Install the RISC-V toolchain and make sure that it's on your path. You need to build a patched Proxy Kernel that will set the `XS` bits to allow access to the "extension", i.e., some RoCC accelerator. You can change this manually or use the provided patch ([`patches/riscv-pk.patch`](patches/riscv-pk.patch)):
+Install the RISC-V toolchain and make sure that it's on your path.
+You need to pass the path to `riscv-tools` in as an argument to configure `--with-riscvtools=$PATH_TO_RISCV_TOOLS`.
+
+```
+autoconf
+mkdir build && cd build
+../configure --with-riscvtools=$PATH_TO_RISCV_TOOLS
+make
+```
+
+This creates two classes of tests:
+* `bareMetal` -- Bare metal tests like [RISCV Tests](https://github.com/riscv/riscv-tests)
+* `pk` -- Tests that use the [Proxy Kernel](https://github.com/riscv/riscv-pk)
+
+Bare Metal tests can be run directly on the emulator (for instructions on how to build this see the following section), e.g.:
+
+```
+emulator-freechips.rocketchip.system-RoccExampleConfig bareMetal/examples-bareMetal-p-accumulator
+```
+
+Proxy Kernel tests are ELFs and need the Proxy Kernel (or Linux).
+You must first patch the Proxy Kernel so that the `XS` bits allow access to the "extension" (the RoCC).
+You can change this manually or use the provided patch ([`patches/riscv-pk.patch`](patches/riscv-pk.patch)):
 ```
 cd $RISCV_PK_DIR
 git apply $THIS_REPO_DIR/patches/riscv-pk.patch
@@ -16,20 +38,19 @@ make
 make install
 ```
 
-Build everything in this repository (`test-accumulator`):
+Following that, you can run Proxy Kernel tests, e.g., :
+
 ```
-git submodule update --init rocc-software
-cd $THIS_REPO_DIR
-make
+emulator-freechips.rocketchip.system-RoccExampleConfig pk pk/examples-pk-accumulator
 ```
+
+## Building a Rocket Chip Emulator
 
 Build a rocket-chip emulator with the RoCC examples baked in and run the provided test program:
 ```
 cd $ROCKETCHIP_DIR/emulator
 make CONFIG=RoccExampleConfig
-./emulator-Top-RoccExampleConfig $RISCV_PK_DIR/build/pk $THIS_REPO_DIR/build/test-accumulator
 ```
-Note: `make install` in `$RISCV_PK_DIR/build` should install the patched proxy kernel in `$RISCV/riscv64-unknown-elf/bin/` and the emulator should find this correctly by just specifying `./emulator-Top-RoccExampleConfig pk [binary]`. However, I'm being explicit in referencing the patched proxy kernel with a full path in the command above.
 
 ### Expected Run Time
 
