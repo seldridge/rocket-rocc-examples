@@ -23,4 +23,5 @@ pk:
 	$(MAKE) -C $@ -f $(abs_top_srcdir)/$@/Makefile $(vars)
 
 clean:
-	$(MAKE) -C pk -f $(vars) clean
+	$(MAKE) -C pk -f $(abs_top_srcdir)/pk/Makefile abs_top_srcdir=$(abs_top_srcdir) PREFIX=$(ROCC)-pk clean
+	$(MAKE) -C bareMetal -f $(abs_top_srcdir)/bareMetal/Makefile abs_top_srcdir=$(abs_top_srcdir) PREFIX=$(ROCC)-bareMetal clean
