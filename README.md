@@ -44,6 +44,8 @@ Following that, you can run Proxy Kernel tests, e.g., :
 emulator-freechips.rocketchip.system-RoccExampleConfig pk pk/examples-pk-accumulator
 ```
 
+__Note__: if the above does not work and the Proxy Kernel hangs, you may need a slightly newer version of the Proxy Kernel. On Rocket Chip master, the riscv-tools Proxy Kernel commit [e5846a2](https://github.com/riscv/riscv-pk/commit/e5846a2) is broken, but commit [3d921d3](https://github.com/riscv/riscv-pk/tree/3d921d3) works.
+
 ## Building a Rocket Chip Emulator
 
 Build a rocket-chip emulator with the RoCC examples baked in and run the provided test program:
