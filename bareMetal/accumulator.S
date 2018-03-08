@@ -3,10 +3,11 @@
 #include "include/accumulator.h"
 #include "rocc-software/src/riscv_test_rocc.h"
 
+#ifdef _ENV_VIRTUAL_SINGLE_CORE_H
+  RVTEST_RV64U
+#else
   RVTEST_WITH_ROCC
-
-start:
-
+#endif
   RVTEST_CODE_BEGIN
 
   // k_DO_READ after k_DO_WRITE
