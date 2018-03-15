@@ -2,8 +2,6 @@ Collection of example libraries and test programs for the existing Rocket Custom
 
 ## Usage
 
-This has been verified as working [`rocket-chip:44eb4d12`](https://github.com/ucb-bar/rocket-chip/tree/44eb4d12).
-
 Install the RISC-V toolchain and make sure that it's on your path.
 You need to pass the path to `riscv-tools` in as an argument to configure `--with-riscvtools=$PATH_TO_RISCV_TOOLS`.
 
