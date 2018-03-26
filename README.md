@@ -55,7 +55,7 @@ make CONFIG=RoccExampleConfig
 The included test should run for ~5 million cycles over a wall clock time of ~5 minutes.
 
 ```
-> time $ROCKETCHIP_DIR/emulator-freechips.rocketchip.system-RoccExampleConfig -c pk ./build/test-accumulator
+> time $ROCKETCHIP_DIR/emulator-freechips.rocketchip.system-RoccExampleConfig -c pk pk/examples-pk-accumulator
 [INFO] Write R[1] = 0xdead
 [INFO] Read R[1]
 [INFO]   Received 0xdead (expected 0xdead)
